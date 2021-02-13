@@ -1,0 +1,73 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: μVision V5.28.0.0
+Copyright (C) 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: GT 936305695, Minecraft, LIC=21ETG-VCGDB-Q0BNJ-UQ9WF-81HV6-R5PQV
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.28.0.0
+Toolchain Path:  C:\Applications\Keil 5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 6 (build 750)
+Assembler:       Armasm.exe V5.06 update 6 (build 750)
+Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
+Library Manager: ArmAr.exe V5.06 update 6 (build 750)
+Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
+CPU DLL:         SARMCM3.DLL V5.28.0.0
+Dialog DLL:      DCM.DLL V1.17.3.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.6.0
+Dialog DLL:      TCM.DLL V1.36.2.0
+ 
+<h2>Project:</h2>
+C:\电赛\E-放大器非线性失真研究装置-Fin\MDK-ARM\diansai_FFT_F4.uvprojx
+Project File Date:  10/17/2020
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Applications\Keil 5\ARM\ARMCC\Bin'
+Build target 'diansai_FFT_F4'
+compiling main.c...
+../Core/Src/main.c(222): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			if((disFFT[i].num-1)*(Fs*1.0)/(len*1.0)>=5200.0)
+../Core/Src/main.c(326): warning:  #177-D: variable "x"  was declared but never referenced
+  		uint8_t x = data & 0x0f;
+../Core/Src/main.c(538): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  					if(fft_Value[i] >= 50.0||((fft_hz[i] >= ((i+1)*1000 - 250))&&(fft_hz[i] <= ((i+1)*1000 + 250))))
+../Core/Src/main.c(611): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  				if(THD <= 16.0)
+../Core/Src/main.c(526): warning:  #550-D: variable "_fft_harmonic"  was set but never used
+  			uint8_t _fft_harmonic[5] = {0,0,0,0,0};
+../Core/Src/main.c(527): warning:  #550-D: variable "harmonic_buf"  was set but never used
+  			uint8_t harmonic_buf[12];
+../Core/Src/main.c: 6 warnings, 0 errors
+linking...
+Program Size: Code=19460 RO-data=43160 RW-data=32 ZI-data=100188  
+FromELF: creating hex file...
+"diansai_FFT_F4\diansai_FFT_F4.axf" - 0 Error(s), 6 Warning(s).
+
+<h2>Software Packages used:</h2>
+
+Package Vendor: ARM
+                http://www.keil.com/pack/ARM.CMSIS.5.5.1.pack
+                ARM.CMSIS.5.5.1
+                CMSIS (Cortex Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.2.0
+
+Package Vendor: Keil
+                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.14.0.pack
+                Keil.STM32F4xx_DFP.2.14.0
+                STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_diansai_FFT_F4
+  C:\Applications\Keil 5\ARM\CMSIS\5.5.1\CMSIS\Core\Include
+  C:\Applications\Keil 5\Keil\STM32F4xx_DFP\2.14.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+
+<h2>Collection of Component Files used:</h2>
+
+   * Component: ARM::CMSIS:CORE:5.2.0
+Build Time Elapsed:  00:00:02
+</pre>
+</body>
+</html>
