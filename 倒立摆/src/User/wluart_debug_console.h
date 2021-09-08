@@ -1,0 +1,6 @@
+#ifndef _WLUART_DEBUG_CONSOLE_
+#define _WLUART_DEBUG_CONSOLE_
+
+
+
+#endif

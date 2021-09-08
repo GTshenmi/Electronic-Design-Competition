@@ -1,0 +1,17 @@
+"C:\Applications\IAR\arm\bin\armproc.dll" 
+
+"C:\Applications\IAR\arm\bin\armjlink2.dll" 
+
+"E:\Users\936305695\Desktop\电赛\PaperCount\Debug\Exe\c.out" 
+
+--plugin "C:\Applications\IAR\arm\bin\armbat.dll" 
+
+--rtc_enable 
+
+--device_macro "C:\Applications\IAR\arm\config\debugger\NXP\Kxx.dmac" 
+
+--device_macro "C:\Applications\IAR\arm\config\debugger\NXP\K6x_Trace.dmac" 
+
+
+
+
