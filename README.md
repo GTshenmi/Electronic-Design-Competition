@@ -13,8 +13,11 @@
 -------
 |   纸张计数装置    |   波形产生电路    |   纸张计数装置    |   
 |:---------------:|:---------------:|:---------------:| 
-|![image1](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/1.jpeg)|![image2](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/2.jpeg)|![image0](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/0.jpeg)|
-|   顶部失真波形    |波形切换及总谐波失真测量电路|底部失真波形|   
+|![image10](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/10.JPG)|![image2](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/2.jpeg)|![image11](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/11.jpeg)|
+
+
+|   顶部失真波形    |波形切换及总谐波失真测量电路|   底部失真波形    |   
+|:---------------:|:---------------:|:---------------:|
 |![image4](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/4.jpeg)|![image3](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/3.jpeg)|![image5](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/5.jpeg)|
 |   双向失真波形    |    正常波形             |      交越失真波形            |   
 |![image7](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/7.jpeg)|![image6](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/6.jpeg)|![image8](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/8.jpeg)|
