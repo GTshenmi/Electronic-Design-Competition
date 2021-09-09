@@ -19,4 +19,17 @@
 |   双向失真波形    |    正常波形             |      交越失真波形            |   
 |![image7](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/7.jpeg)|![image6](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/6.jpeg)|![image8](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/8.jpeg)|
 
+###  `纸张计数装置`
 
+#### `项目介绍`
+-------
+
+        本装置是基于模板匹配算法实现的纸张计数测量系统，主要由单片机控制模块、OLED液晶屏幕、FDC2214、按键、蜂鸣器等构成。纸张计数模块测量由三块亚克力立板和两块   
+    极板构成，与测量显示电路模块通过20cm导线相连，测试时抬起顶层亚克力板，放置纸张，放下亚克力板，通过FDC2214来测量纸张张数的变化。此装置以MK66为主控芯片，由其
+    读取FDC2214传感器的数据、进行模式选择，数据运算及控制显示。 
+    
+#### `系统展示`
+-------
+|   纸张计数显示    |   纸张计数装置    |
+|:---------------:|:---------------:|
+|![image0](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/0.jpeg)|![image1](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/1.jpeg)|
