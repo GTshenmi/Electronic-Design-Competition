@@ -59,15 +59,15 @@
 #define doBitReverse 1
 
 typedef struct{
-	uint16_t num;
-	float 	value;
-	float 	hz;
+    uint16_t num;
+    float value;
+    float hz;
 }disBuf;
 
 float fft_hz[5];
 float fft_Value[5];
 
-disBuf disFFT[(NPT>>1)];   //∆µ∆◊œﬂ ˝æ›
+disBuf disFFT[(NPT>>1)];   //È¢ëË∞±Á∫øÊï∞ÊçÆ
 			
 uint16_t adc_buff[NPT]={0};
 float fadc_buf[NPT] = {0.0};
@@ -88,7 +88,7 @@ float FFT_OutputBuf[NPT];
 /* USER CODE BEGIN PV */
 
 
-int state;//∞¥º¸µƒ±Í÷æŒª£¨Œ¥ π”√…œ
+int state;//ÊåâÈîÆÁöÑÊ†áÂøó‰ΩçÔºåÊú™‰ΩøÁî®‰∏ä
 int i = 0;
 
 int sig =5;
@@ -150,17 +150,17 @@ uint32_t o_buf[2];
 
 																								
 																								
-void LED_Check()//‘⁄÷–∂œªÿµ˜∫Ø ˝¿Ô≤ª”√HAL_DELAY
+void LED_Check()//Âú®‰∏≠Êñ≠ÂõûË∞ÉÂáΩÊï∞Èáå‰∏çÁî®HAL_DELAY
 {
-	LED1_ON();
-	HAL_Delay(500);
-	LED2_ON();
-	HAL_Delay(500);
+    LED1_ON();
+    HAL_Delay(500);
+    LED2_ON();
+    HAL_Delay(500);
 	
-	LED1_OFF();
-	HAL_Delay(500);
-	LED2_OFF();
-	HAL_Delay(500);
+    LED1_OFF();
+    HAL_Delay(500);
+    LED2_OFF();
+    HAL_Delay(500);
 	
 }
 
@@ -168,262 +168,262 @@ unsigned char str_buff[12];
 
 void ADC_DMAStart()
 {
-	HAL_Delay(500);
+    HAL_Delay(500);
 	
-	HAL_ADC_Start_DMA(&hadc1,(uint32_t *)adc_buff,NPT);
+    HAL_ADC_Start_DMA(&hadc1,(uint32_t *)adc_buff,NPT);
 	
-	HAL_Delay(500);
-	HAL_ADC_Stop_DMA(&hadc1);
-	
-	
+    HAL_Delay(500);
+    HAL_ADC_Stop_DMA(&hadc1);
 	
 	
-	for(int i=0;i<NPT;i++)
-	{	
-			fadc_buf[i] = (adc_buff[i] & 0x0fff) * 1.0;
-	}
+	
+	
+    for(int i=0;i<NPT;i++)
+    {	
+        fadc_buf[i] = (adc_buff[i] & 0x0fff) * 1.0;
+    }
 }
 void FFT_Shift(float *SampleValueBuf,float *OutPutBuf,uint32_t len)
 {
-  for(int i = 0;i<len;i++) 
-  {
-		FFT_InputBuf[2*i] = (float)SampleValueBuf[i];//* 3.3/4096.0;
-		FFT_InputBuf[2*i + 1] = 0.0;
-	}
+    for(int i = 0;i<len;i++) 
+    {
+        FFT_InputBuf[2*i] = (float)SampleValueBuf[i];//* 3.3/4096.0;
+        FFT_InputBuf[2*i + 1] = 0.0;
+    }
   
-	arm_cfft_f32(&arm_cfft_sR_f32_len4096,FFT_InputBuf,ifftFlag,doBitReverse);
+    arm_cfft_f32(&arm_cfft_sR_f32_len4096,FFT_InputBuf,ifftFlag,doBitReverse);
 
-  arm_cmplx_mag_f32(FFT_InputBuf, OutPutBuf,len); 	
+    arm_cmplx_mag_f32(FFT_InputBuf, OutPutBuf,len); 	
 }
 
 void CalculateTHD(float *fft_outputbuf,float *THD,float len)
 {
-		int FFT = 0;
-		float a = 0.0;
+    int FFT = 0;
+    float a = 0.0;
 
-		for(int i = 0;i<5;i++)
-		{
-			 fft_hz[i] = 0.0;
-			 fft_Value[i] = 0.0;		
-		}
-		for(i=1;i<len-1;i++)
-		{
-			if((fft_outputbuf[i]>fft_outputbuf[i-1]&&fft_outputbuf[i]>fft_outputbuf[i+1]))
-			{
-				if(fft_outputbuf[i]>(float)62060.6)
-				{
-					disFFT[FFT].num =i;
-					disFFT[FFT++].value =fft_outputbuf[i];
-				}
-			}
-		}
-		for(i=0;i<FFT/2;i++)
-		{
-			if((disFFT[i].num-1)*(Fs*1.0)/(len*1.0)>=5200.0)
-			{
-					break;
-			}
-			else
-			{
-					fft_hz[i]=(float)((disFFT[i].num)*Fs/len);
-					fft_Value[i]=(disFFT[i].value + disFFT[FFT-1-i].value)/len*2;
-			}				
+    for(int i = 0;i<5;i++)
+    {
+        fft_hz[i] = 0.0;
+        fft_Value[i] = 0.0;		
+    }
+    for(i=1;i<len-1;i++)
+    {
+        if((fft_outputbuf[i]>fft_outputbuf[i-1]&&fft_outputbuf[i]>fft_outputbuf[i+1]))
+        {
+            if(fft_outputbuf[i]>(float)62060.6)
+            {
+                disFFT[FFT].num =i;
+                disFFT[FFT++].value =fft_outputbuf[i];
+            }
+        }
+    }
+    for(i=0;i<FFT/2;i++)
+    {
+        if((disFFT[i].num-1)*(Fs*1.0)/(len*1.0)>=5200.0)
+        {
+            break;
+        }
+        else
+        {
+            fft_hz[i]=(float)((disFFT[i].num)*Fs/len);
+            fft_Value[i]=(disFFT[i].value + disFFT[FFT-1-i].value)/len*2;
+        }				
 
-		}
+    }
 		
-		arm_sqrt_f32(fft_Value[1]*fft_Value[1]+fft_Value[2]*fft_Value[2]+fft_Value[3]*fft_Value[3]+fft_Value[4]*fft_Value[4],&a);
-		if(fabs(fft_Value[0])<1e-6)
-			*THD = 0.0;
-		else
-			*THD=a/fft_Value[0];
+    arm_sqrt_f32(fft_Value[1]*fft_Value[1]+fft_Value[2]*fft_Value[2]+fft_Value[3]*fft_Value[3]+fft_Value[4]*fft_Value[4],&a);
+    if(fabs(fft_Value[0])<1e-6)
+        *THD = 0.0;
+    else
+        *THD=a/fft_Value[0];
 		
-		if(*THD >= 0.483f)
-			*THD = 0.483f;
+    if(*THD >= 0.483f)
+        *THD = 0.483f;
 		
-		printf1("\r\n%.3f\r\n",*THD);
+    printf1("\r\n%.3f\r\n",*THD);
 }
 
 float CalculateTHDAve(float *THD,float len)
 {
-	float _THD[5] = {0.0,0.0,0.0,0.0,0.0};
-		*THD = 0;
-	for(int i = 0;i<5;i++)
-	{
-		ADC_DMAStart();
+    float _THD[5] = {0.0,0.0,0.0,0.0,0.0};
+    *THD = 0;
+    for(int i = 0;i<5;i++)
+    {
+        ADC_DMAStart();
 
-		FFT_Shift(fadc_buf,FFT_OutputBuf,NPT);
-		CalculateTHD(FFT_OutputBuf,&_THD[i],NPT);	
-			*THD += _THD[i];
-	}
-	*THD /= (5.0f);
+        FFT_Shift(fadc_buf,FFT_OutputBuf,NPT);
+        CalculateTHD(FFT_OutputBuf,&_THD[i],NPT);	
+        *THD += _THD[i];
+    }
+    *THD /= (5.0f);
 	
-	return *THD;
+    return *THD;
 }
 
 void DisplayNormalWave()
 {
-		Switch1(ON);
-		Switch2(OFF);
-		Switch3(OFF);
-		Switch4(OFF);
+    Switch1(ON);
+    Switch2(OFF);
+    Switch3(OFF);
+    Switch4(OFF);
 }
 
 void DisplayTopDistortionWave()
 {
-		Switch1(ON);
-		Switch2(OFF);
-		Switch3(ON);
-		Switch4(OFF);
+    Switch1(ON);
+    Switch2(OFF);
+    Switch3(ON);
+    Switch4(OFF);
 	
-//		Switch1(ON);
-//		Switch2(ON);
-//		Switch3(OFF);
-//		Switch4(OFF);
+//    Switch1(ON);
+//    Switch2(ON);
+//    Switch3(OFF);
+//    Switch4(OFF);
 }
 void DisplayButtonDistortionWave()
 {
-		Switch1(OFF);
-		Switch2(OFF);
-		Switch3(OFF);
-		Switch4(OFF);
+    Switch1(OFF);
+    Switch2(OFF);
+    Switch3(OFF);
+    Switch4(OFF);
 }
 void DisplayTwoWayDistortionWave()
 {	
-		Switch1(ON);
-		Switch2(OFF);
-		Switch3(OFF);
-		Switch4(ON);
+    Switch1(ON);
+    Switch2(OFF);
+    Switch3(OFF);
+    Switch4(ON);
 	
-//		Switch1(ON);
-//		Switch2(OFF);
-//		Switch3(ON);
-//		Switch4(OFF);
+//    Switch1(ON);
+//    Switch2(OFF);
+//    Switch3(ON);
+//    Switch4(OFF);
 }
 void DisplayCrossoverDistortionWave()
 {
-		Switch1(ON);
-		Switch2(ON);
-		Switch3(OFF);
-		Switch4(OFF);
+    Switch1(ON);
+    Switch2(ON);
+    Switch3(OFF);
+    Switch4(OFF);
 	
-//		Switch1(ON);
-//		Switch2(OFF);
-//		Switch3(OFF);
-//		Switch4(ON);
+//    Switch1(ON);
+//    Switch2(OFF);
+//    Switch3(OFF);
+//    Switch4(ON);
 }
 
 void OLED_Display(uint8_t *wave_str,float THD)
 {
 	 
-		OLED_ShowString(0,0,(uint8_t *)"www.bilibili.com"); 
+    OLED_ShowString(0,0,(uint8_t *)"www.bilibili.com"); 
 
-		sprintf((char *)str_buff,"%d",(int)THD);//Ω´ ˝æ›∏Ò ΩªØŒ™◊÷∑˚¥Æ
-		OLED_ShowString(46,2,str_buff);
+    sprintf((char *)str_buff,"%d",(int)THD);//Â∞ÜÊï∞ÊçÆÊ†ºÂºèÂåñ‰∏∫Â≠óÁ¨¶‰∏≤
+    OLED_ShowString(46,2,str_buff);
 }
 
 void CD4066Ctrl(uint8_t data)
 {
-		uint8_t x = data & 0x0f;
+    uint8_t x = data & 0x0f;
 	
-		Switch1(((data>>3)&0x01));
-		Switch2((data>>2)&0x01);
-		Switch3((data>>1)&0x01);
-	  Switch3((data)&0x01);
+    Switch1(((data>>3)&0x01));
+    Switch2((data>>2)&0x01);
+    Switch3((data>>1)&0x01);
+    Switch3((data)&0x01);
 }
 void Search()
 {
-		for(int i = 0;i<16;i++)
-			CD4066Ctrl(i);
+    for(int i = 0;i<16;i++)
+        CD4066Ctrl(i);
 }
 void ClearStrBuf()
 {
-		for(int i = 0;i<12;i++)
-			str_buff[i] = ' ';
+    for(int i = 0;i<12;i++)
+        str_buff[i] = ' ';
 	
 }
 void DisplayWave()
 {
-		float THD = 0.0;
+    float THD = 0.0;
 		
-		DisplayNormalWave();   //’˝≥£
-		OLED_Clear();
+    DisplayNormalWave();   //Ê≠£Â∏∏
+    OLED_Clear();
 	  
-		OLED_ShowString(0,0,(uint8_t *)"Normal Wave"); 
+    OLED_ShowString(0,0,(uint8_t *)"Normal Wave"); 
 	 
-	  CalculateTHDAve(&THD,NPT);
+    CalculateTHDAve(&THD,NPT);
 
-	  ClearStrBuf();
-		sprintf((char *)str_buff,"%7.3f %%",THD*100);//Ω´ ˝æ›∏Ò ΩªØŒ™◊÷∑˚¥Æ
+    ClearStrBuf();
+    sprintf((char *)str_buff,"%7.3f %%",THD*100);//Â∞ÜÊï∞ÊçÆÊ†ºÂºèÂåñ‰∏∫Â≠óÁ¨¶‰∏≤
 	  
-		OLED_ShowString(46,4,str_buff);
-		HAL_Delay(4500);	
-		BEEP_ON();
-		HAL_Delay(500);
-		BEEP_OFF();
+    OLED_ShowString(46,4,str_buff);
+    HAL_Delay(4500);	
+    BEEP_ON();
+    HAL_Delay(500);
+    BEEP_OFF();
 	
 
-		DisplayTopDistortionWave(); //∂•≤ø
-		OLED_Clear();
-		OLED_ShowString(0,0,(uint8_t *)"Top Distortion Wave"); 
+    DisplayTopDistortionWave(); //È°∂ÈÉ®
+    OLED_Clear();
+    OLED_ShowString(0,0,(uint8_t *)"Top Distortion Wave"); 
 		
-		CalculateTHDAve(&THD,NPT);
+    CalculateTHDAve(&THD,NPT);
 		
-  	ClearStrBuf();
-		sprintf((char *)str_buff,"%.3f %%",THD*100);//Ω´ ˝æ›∏Ò ΩªØŒ™◊÷∑˚¥Æ		OLED_ShowString(46,4,str_buff);
-		OLED_ShowString(46,4,str_buff);
+    ClearStrBuf();
+    sprintf((char *)str_buff,"%.3f %%",THD*100);//Â∞ÜÊï∞ÊçÆÊ†ºÂºèÂåñ‰∏∫Â≠óÁ¨¶‰∏≤		OLED_ShowString(46,4,str_buff);
+    OLED_ShowString(46,4,str_buff);
 		
-		HAL_Delay(4500);	
-		BEEP_ON();
-		HAL_Delay(500);
-		BEEP_OFF();
+    HAL_Delay(4500);	
+    BEEP_ON();
+    HAL_Delay(500);
+    BEEP_OFF();
 
-		OLED_Clear();
-		DisplayButtonDistortionWave(); //µ◊≤ø
-		OLED_ShowString(0,0,(uint8_t *)"Button Distortion Wave");
+    OLED_Clear();
+    DisplayButtonDistortionWave(); //Â∫ïÈÉ®
+    OLED_ShowString(0,0,(uint8_t *)"Button Distortion Wave");
 		
-		CalculateTHDAve(&THD,NPT);	
-	  ClearStrBuf();
-		sprintf((char *)str_buff,"%.3f %%",THD*100);//Ω´ ˝æ›∏Ò ΩªØŒ™◊÷∑˚¥Æ
+    CalculateTHDAve(&THD,NPT);	
+    ClearStrBuf();
+    sprintf((char *)str_buff,"%.3f %%",THD*100);//Â∞ÜÊï∞ÊçÆÊ†ºÂºèÂåñ‰∏∫Â≠óÁ¨¶‰∏≤
 		
-		OLED_ShowString(46,4,str_buff);
-		HAL_Delay(4500);	
-		BEEP_ON();
-		HAL_Delay(500);
-		BEEP_OFF();
+    OLED_ShowString(46,4,str_buff);
+    HAL_Delay(4500);	
+    BEEP_ON();
+    HAL_Delay(500);
+    BEEP_OFF();
 		
 		
-		OLED_Clear();
-		OLED_ShowString(0,0,(uint8_t *)"Two Way Distortion Wave");
-		DisplayTwoWayDistortionWave();
-  	CalculateTHDAve(&THD,NPT);
+    OLED_Clear();
+    OLED_ShowString(0,0,(uint8_t *)"Two Way Distortion Wave");
+    DisplayTwoWayDistortionWave();
+    CalculateTHDAve(&THD,NPT);
 		
     ClearStrBuf();
 		
-		sprintf((char *)str_buff,"%.3f %%",THD*100);//Ω´ ˝æ›∏Ò ΩªØŒ™◊÷∑˚¥Æ
-		OLED_ShowString(46,4,str_buff);
-		HAL_Delay(4500);	
-		BEEP_ON();
-		HAL_Delay(500);
-		BEEP_OFF();
+    sprintf((char *)str_buff,"%.3f %%",THD*100);//Â∞ÜÊï∞ÊçÆÊ†ºÂºèÂåñ‰∏∫Â≠óÁ¨¶‰∏≤
+    OLED_ShowString(46,4,str_buff);
+    HAL_Delay(4500);	
+    BEEP_ON();
+    HAL_Delay(500);
+    BEEP_OFF();
 		
-		DisplayCrossoverDistortionWave(); //Ωª‘Ω	
-		OLED_Clear();
-		OLED_ShowString(0,0,(uint8_t *)"Crossover Distortion Wave"); 
+    DisplayCrossoverDistortionWave(); //‰∫§Ë∂ä	
+    OLED_Clear();
+    OLED_ShowString(0,0,(uint8_t *)"Crossover Distortion Wave"); 
 		
-	  CalculateTHDAve(&THD,NPT);
+    CalculateTHDAve(&THD,NPT);
 	
-	  ClearStrBuf();
-		sprintf((char *)str_buff,"%.3f %%",THD*100);//Ω´ ˝æ›∏Ò ΩªØŒ™◊÷∑˚¥Æ
+    ClearStrBuf();
+    sprintf((char *)str_buff,"%.3f %%",THD*100);//Â∞ÜÊï∞ÊçÆÊ†ºÂºèÂåñ‰∏∫Â≠óÁ¨¶‰∏≤
 		
-		OLED_ShowString(46,4,str_buff);
-		HAL_Delay(4500);	
-		BEEP_ON();
-		HAL_Delay(500);
-		BEEP_OFF();
+    OLED_ShowString(46,4,str_buff);
+    HAL_Delay(4500);	
+    BEEP_ON();
+    HAL_Delay(500);
+    BEEP_OFF();
 }
 
 
-extern unsigned char BMP1[]; //ø™ª˙ΩÁ√Ê    bilibili∏…±≠£°
+extern unsigned char BMP1[]; //ÂºÄÊú∫ÁïåÈù¢    bilibiliÂπ≤ÊùØÔºÅ
 void OLED_display_pic()
 {
 	OLED_Clear();
@@ -436,14 +436,14 @@ void OLED_display_info()
 {
 	OLED_Clear();
 	OLED_ShowString(0,0,(uint8_t *)"YZ0012");
-	//OLED_ShowString(0,0,(uint8_t *)"www.bilibili.com");  //µ⁄6∫ÕœÒÀÿµ„£¨µ⁄0“≥£¨◊÷∑˚¥Æ ˝◊È
-	//∫∫◊÷16∏ˆœÒÀÿµ„£¨“ª∞„Œ™18∏ˆ
-//	OLED_ShowCHinese(0,2,0);//≤…—˘£∫
+	//OLED_ShowString(0,0,(uint8_t *)"www.bilibili.com");  //Á¨¨6ÂíåÂÉèÁ¥†ÁÇπÔºåÁ¨¨0È°µÔºåÂ≠óÁ¨¶‰∏≤Êï∞ÁªÑ
+	//Ê±âÂ≠ó16‰∏™ÂÉèÁ¥†ÁÇπÔºå‰∏ÄËà¨‰∏∫18‰∏™
+//	OLED_ShowCHinese(0,2,0);//ÈááÊ†∑Ôºö
 //	OLED_ShowCHinese(18,2,1);
 //	OLED_ShowString(36,2,(uint8_t *)":"); 
 //	
 //	
-//	OLED_ShowCHinese(0,4,3);//µÁ—π£∫
+//	OLED_ShowCHinese(0,4,3);//ÁîµÂéãÔºö
 //	OLED_ShowCHinese(18,4,4);
 //	//OLED_ShowString(38,3,(uint8_t *)"(V)");
 //	OLED_ShowString(36,4,(uint8_t *)":");  
@@ -510,7 +510,7 @@ int main(void)
 #endif
 	
 	
-/*******F4FFT≤‚ ‘*******/
+/*******F4FFTÊµãËØï*******/
 	
 	
 	delay_init(72); 
@@ -621,7 +621,7 @@ int main(void)
 			}	
 				
 			
-			sprintf((char *)str_buff,"%.3f %%",THD*100);//Ω´ ˝æ›∏Ò ΩªØŒ™◊÷∑˚¥Æ
+			sprintf((char *)str_buff,"%.3f %%",THD*100);//Â∞ÜÊï∞ÊçÆÊ†ºÂºèÂåñ‰∏∫Â≠óÁ¨¶‰∏≤
 			
 			OLED_ShowString(46,2,str_buff);
 			
@@ -678,10 +678,10 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-//GPIO÷–∂œ,¥À¥¶Œ™∞¥º¸÷–∂œ£¨º«¬º∞¥œ¬µƒ ±º‰£¨Œ¥ π”√
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)//÷–∂œªÿµ˜∫Ø ˝ ‘⁄main÷–÷ÿ–¥
-{//À´±ﬂ—ÿ÷–∂œ
-	if(GPIO_Pin == GPIO_PIN_3)  //key1 ƒ£ Ω“ª ∫ÏÕ‚≤‚Œ¬
+//GPIO‰∏≠Êñ≠,Ê≠§Â§Ñ‰∏∫ÊåâÈîÆ‰∏≠Êñ≠ÔºåËÆ∞ÂΩïÊåâ‰∏ãÁöÑÊó∂Èó¥ÔºåÊú™‰ΩøÁî®
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)//‰∏≠Êñ≠ÂõûË∞ÉÂáΩÊï∞ Âú®main‰∏≠ÈáçÂÜô
+{//ÂèåËæπÊ≤ø‰∏≠Êñ≠
+	if(GPIO_Pin == GPIO_PIN_3)  //key1 Ê®°Âºè‰∏Ä Á∫¢Â§ñÊµãÊ∏©
 	{
 		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,GPIO_PIN_SET);
 		delay_ms(10);
@@ -691,7 +691,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)//÷–∂œªÿµ˜∫Ø ˝ ‘⁄main÷–÷ÿ–¥
 	
 	
 	
-	if(GPIO_Pin == GPIO_PIN_2) 		//key2  ƒ£ Ω2LMT70≤‚Œ¬
+	if(GPIO_Pin == GPIO_PIN_2) 		//key2  Ê®°Âºè2LMT70ÊµãÊ∏©
 	{
 			HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,GPIO_PIN_SET);
 			tat=1;
@@ -710,7 +710,7 @@ int fputc(int ch,FILE *f)
 	HAL_UART_Transmit(&huart1,(uint8_t *)&chTemp,count,100);
 	return count;
 }
-//∂® ±∆˜TIM1÷–∂œ£¨Œ¥ π”√
+//ÂÆöÊó∂Âô®TIM1‰∏≠Êñ≠ÔºåÊú™‰ΩøÁî®
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) 
 {
 	if(htim->Instance == TIM1)
