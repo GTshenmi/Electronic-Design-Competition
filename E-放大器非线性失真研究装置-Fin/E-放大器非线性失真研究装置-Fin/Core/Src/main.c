@@ -426,29 +426,29 @@ void DisplayWave()
 extern unsigned char BMP1[]; //开机界面    bilibili干杯！
 void OLED_display_pic()
 {
-	OLED_Clear();
-	//OLED_DrawBMP(0,0,128,8,BMP1);
-	OLED_ShowString(0,0,(uint8_t *)"Hello world"); 
+    OLED_Clear();
+    //OLED_DrawBMP(0,0,128,8,BMP1);
+    OLED_ShowString(0,0,(uint8_t *)"Hello world"); 
 }
 
 
 void OLED_display_info()
 {
-	OLED_Clear();
-	OLED_ShowString(0,0,(uint8_t *)"YZ0012");
-	//OLED_ShowString(0,0,(uint8_t *)"www.bilibili.com");  //第6和像素点，第0页，字符串数组
-	//汉字16个像素点，一般为18个
-//	OLED_ShowCHinese(0,2,0);//采样：
-//	OLED_ShowCHinese(18,2,1);
-//	OLED_ShowString(36,2,(uint8_t *)":"); 
+    OLED_Clear();
+    OLED_ShowString(0,0,(uint8_t *)"YZ0012");
+    //OLED_ShowString(0,0,(uint8_t *)"www.bilibili.com");  //第6和像素点，第0页，字符串数组
+    //汉字16个像素点，一般为18个
+//    OLED_ShowCHinese(0,2,0);//采样：
+//    OLED_ShowCHinese(18,2,1);
+//    OLED_ShowString(36,2,(uint8_t *)":"); 
 //	
 //	
-//	OLED_ShowCHinese(0,4,3);//电压：
-//	OLED_ShowCHinese(18,4,4);
-//	//OLED_ShowString(38,3,(uint8_t *)"(V)");
-//	OLED_ShowString(36,4,(uint8_t *)":");  
+//    OLED_ShowCHinese(0,4,3);//电压：
+//    OLED_ShowCHinese(18,4,4);
+//    //OLED_ShowString(38,3,(uint8_t *)"(V)");
+//    OLED_ShowString(36,4,(uint8_t *)":");  
 //	
-//	OLED_ShowString(0,6,(uint8_t *)"Temp:");
+//    OLED_ShowString(0,6,(uint8_t *)"Temp:");
 //	
 	
 }
@@ -460,178 +460,179 @@ void OLED_display_info()
   */
 int main(void)
 {
-  /* USER CODE BEGIN 1 */
+    /* USER CODE BEGIN 1 */
 
-  /* USER CODE END 1 */
+    /* USER CODE END 1 */
 
-  /* MCU Configuration--------------------------------------------------------*/
+    /* MCU Configuration--------------------------------------------------------*/
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+    HAL_Init();
 
-  /* USER CODE BEGIN Init */
+    /* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+    /* USER CODE END Init */
 
-  /* Configure the system clock */
-  SystemClock_Config();
+    /* Configure the system clock */
+    SystemClock_Config();
 
-  /* USER CODE BEGIN SysInit */
+    /* USER CODE BEGIN SysInit */
 
-  /* USER CODE END SysInit */
+    /* USER CODE END SysInit */
 
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_DMA_Init();
-  MX_ADC1_Init();
-  MX_USART1_UART_Init();
-  MX_TIM3_Init();
-  /* USER CODE BEGIN 2 */
-	LED_Check();
-	OLED_Init();
-	BEEP_ON();
+    /* Initialize all configured peripherals */
+    MX_GPIO_Init();
+    MX_DMA_Init();
+    MX_ADC1_Init();
+    MX_USART1_UART_Init();
+    MX_TIM3_Init();
+    /* USER CODE BEGIN 2 */
+    LED_Check();
+    OLED_Init();
+    BEEP_ON();
 
-	HAL_Delay(500);
+    HAL_Delay(500);
 
-	BEEP_OFF();
+    BEEP_OFF();
 
-	delay_init(72); 
+    delay_init(72); 
 	
-	OLED_WriteXLine(0,"Hello,World.");
-	OLED_display_info();
-	HAL_TIM_Base_Start(&htim3);
-	HAL_ADC_Start(&hadc1);
+    OLED_WriteXLine(0,"Hello,World.");
+    OLED_display_info();
+    HAL_TIM_Base_Start(&htim3);
+    HAL_ADC_Start(&hadc1);
 	
 #if 1
 
-	DisplayWave();
-	DisplayNormalWave();
+    DisplayWave();
+    DisplayNormalWave();
 	
 #endif
 	
 	
-/*******F4FFT测试*******/
+    /*******F4FFT测试*******/
 	
 	
-	delay_init(72); 
+    delay_init(72); 
  
-	HAL_Delay(500);
-  /* USER CODE END 2 */
+    HAL_Delay(500);
+    /* USER CODE END 2 */
 
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-			uint8_t fft_harmonic[5] = {0,0,0,0,0};
-			uint8_t _fft_harmonic[5] = {0,0,0,0,0};
-			uint8_t harmonic_buf[12];
-			for(int i = 0;i<12;i++)
-				harmonic_buf[i] = ' ';
-				
-			/* USER CODE END WHILE */
-			OLED_Clear();
-			OLED_ShowString(0,0,(uint8_t *)"Test Wave"); 
+    /* Infinite loop */
+    /* USER CODE BEGIN WHILE */
+    while (1)
+    {
+        uint8_t fft_harmonic[5] = {0,0,0,0,0};
+        uint8_t _fft_harmonic[5] = {0,0,0,0,0};
+        uint8_t harmonic_buf[12];
+        for(int i = 0;i<12;i++)
+            harmonic_buf[i] = ' ';
+    
+        /* USER CODE END WHILE */
+        OLED_Clear();
+        OLED_ShowString(0,0,(uint8_t *)"Test Wave"); 
 			
-			CalculateTHDAve(&THD,NPT);	
-			for(int i = 0;i<5;i++)
-			{
-					if(fft_Value[i] >= 50.0||((fft_hz[i] >= ((i+1)*1000 - 250))&&(fft_hz[i] <= ((i+1)*1000 + 250))))
-					{
-							fft_harmonic[i] = 1;
-							//if(fft_hz[i] >= ((i*1000)))
-					}
-					else
-				      fft_harmonic[i] = 0;
+        CalculateTHDAve(&THD,NPT);	
+        for(int i = 0;i<5;i++)
+        {
+            if(fft_Value[i] >= 50.0||((fft_hz[i] >= ((i+1)*1000 - 250))&&(fft_hz[i] <= ((i+1)*1000 + 250))))
+            {
+                fft_harmonic[i] = 1;
+                //if(fft_hz[i] >= ((i*1000)))
+            }
+            else
+                fft_harmonic[i] = 0;
 					
-					if(fft_harmonic[i])
-						_fft_harmonic[i] = i + '0';
-				  else
-						_fft_harmonic[i] = ' ';			
-			}
+            if(fft_harmonic[i])
+                _fft_harmonic[i] = i + '0';
+            else
+                _fft_harmonic[i] = ' ';			
+        }
 			
-			fft_harmonic[0] = 1;
-			_fft_harmonic[0] = '1';
+        fft_harmonic[0] = 1;
+        _fft_harmonic[0] = '1';
 
-			if(fft_harmonic[2] == 1 && fft_harmonic[4] == 1)
-			{
-				 _fft_harmonic[2] = '3';
-				 _fft_harmonic[4] = '5';
-				 _fft_harmonic[1] = ' ';
-				 _fft_harmonic[0] = ' ';
-			}
-			else if(fft_harmonic[2] == 1 || fft_harmonic[4] == 1) // 1 3 5
-			{
-				 _fft_harmonic[2] = '3';
-				 _fft_harmonic[4] = '5';
-			}
-			else 
-			{
-				 _fft_harmonic[1] = '2';
-				 _fft_harmonic[3] = '4';
-			}
+        if(fft_harmonic[2] == 1 && fft_harmonic[4] == 1)
+        {
+            _fft_harmonic[2] = '3';
+            _fft_harmonic[4] = '5';
+            _fft_harmonic[1] = ' ';
+            _fft_harmonic[0] = ' ';
+        }
+        else if(fft_harmonic[2] == 1 || fft_harmonic[4] == 1) // 1 3 5
+        {
+            _fft_harmonic[2] = '3';
+            _fft_harmonic[4] = '5';
+        }
+        else 
+	{
+            _fft_harmonic[1] = '2';
+            _fft_harmonic[3] = '4';
+        }
 			
 			
 			
-			if(fft_harmonic[1] == 1 && fft_harmonic[3] == 1)
-			{
-				 _fft_harmonic[3] = '4';
-				 _fft_harmonic[1] = '2';
-				 _fft_harmonic[2] = ' ';
-				 _fft_harmonic[4] = ' ';
-			}		
-			else if(fft_harmonic[1] == 1 || fft_harmonic[3] == 1) //1 2 4
-			{
-				 _fft_harmonic[1] = '2';
-				 _fft_harmonic[3] = '4';
-			}
-			else
-			{
-				 _fft_harmonic[2] = '3';
-				 _fft_harmonic[4] = '5';
-			}
+        if(fft_harmonic[1] == 1 && fft_harmonic[3] == 1)
+        {
+            _fft_harmonic[3] = '4';
+            _fft_harmonic[1] = '2';
+            _fft_harmonic[2] = ' ';
+            _fft_harmonic[4] = ' ';
+        }		
+        else if(fft_harmonic[1] == 1 || fft_harmonic[3] == 1) //1 2 4
+        {
+	
+            _fft_harmonic[1] = '2';
+            _fft_harmonic[3] = '4';
+        }
+        else
+        {
+            _fft_harmonic[2] = '3';
+            _fft_harmonic[4] = '5';
+        }
 			
-			if(fft_Value[0] && fft_Value[2] && fft_Value[4])
-			{
-				OLED_Clear();
-				OLED_ShowString(0,4,"1 3 5");
-			}
-			else
-			{
-				OLED_Clear();
-				OLED_ShowString(0,4,"1 2 4");
-			}	
+        if(fft_Value[0] && fft_Value[2] && fft_Value[4])
+        {
+            OLED_Clear();
+            OLED_ShowString(0,4,"1 3 5");
+        }
+        else
+        {
+            OLED_Clear();
+            OLED_ShowString(0,4,"1 2 4");
+        }	
 			
-			if(fft_Value[0] && fft_Value[1] && fft_Value[3])
-			{
-					OLED_Clear();
-					OLED_ShowString(0,4,"1 2 4");
-			}
-			else
-			{
-				if(THD <= 16.0)
-				{
-					OLED_Clear();
-					OLED_ShowString(0,4,"1 3 5");
-				}
-				else
-				{
-					OLED_Clear();
-					OLED_ShowString(0,4,"1 2 4");
-				}
-			}	
+        if(fft_Value[0] && fft_Value[1] && fft_Value[3])
+        {
+            OLED_Clear();
+            OLED_ShowString(0,4,"1 2 4");
+        }
+        else
+        {
+            if(THD <= 16.0)
+            {
+                OLED_Clear();
+                OLED_ShowString(0,4,"1 3 5");
+            }
+            else
+            {
+                OLED_Clear();
+                OLED_ShowString(0,4,"1 2 4");
+            }
+        }	
 				
 			
-			sprintf((char *)str_buff,"%.3f %%",THD*100);//将数据格式化为字符串
+        sprintf((char *)str_buff,"%.3f %%",THD*100);//将数据格式化为字符串
 			
-			OLED_ShowString(46,2,str_buff);
+        OLED_ShowString(46,2,str_buff);
 			
-			HAL_Delay(4500);	
-			BEEP_ON();
-			HAL_Delay(500);
-			BEEP_OFF();
-    /* USER CODE BEGIN 3 */
+        HAL_Delay(4500);	
+        BEEP_ON();
+        HAL_Delay(500);
+        BEEP_OFF();
+        /* USER CODE BEGIN 3 */
   }
-  /* USER CODE END 3 */
+        /* USER CODE END 3 */
 }
 
 /**
@@ -640,62 +641,61 @@ int main(void)
   */
 void SystemClock_Config(void)
 {
-  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+    RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+    RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-  /** Configure the main internal regulator output voltage
-  */
-  __HAL_RCC_PWR_CLK_ENABLE();
-  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
-  /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 25;
-  RCC_OscInitStruct.PLL.PLLN = 336;
-  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /** Initializes the CPU, AHB and APB buses clocks
-  */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+    /** Configure the main internal regulator output voltage*/
+    __HAL_RCC_PWR_CLK_ENABLE();
+    __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+    /** Initializes the RCC Oscillators according to the specified parameters
+    * in the RCC_OscInitTypeDef structure.
+    */
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+    RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+    RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+    RCC_OscInitStruct.PLL.PLLM = 25;
+    RCC_OscInitStruct.PLL.PLLN = 336;
+    RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+    RCC_OscInitStruct.PLL.PLLQ = 4;
+    if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+    {
+        Error_Handler();
+    }
+    /** Initializes the CPU, AHB and APB buses clocks
+    */
+    RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                                  |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+    RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+    RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+    RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+    RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
-  {
-    Error_Handler();
-  }
+    if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
+    {
+        Error_Handler();
+    }
 }
 
 /* USER CODE BEGIN 4 */
 //GPIO中断,此处为按键中断，记录按下的时间，未使用
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)//中断回调函数 在main中重写
 {//双边沿中断
-	if(GPIO_Pin == GPIO_PIN_3)  //key1 模式一 红外测温
-	{
-		HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,GPIO_PIN_SET);
-		delay_ms(10);
-		tat=0;
+    if(GPIO_Pin == GPIO_PIN_3)  //key1 模式一 红外测温
+    {
+        HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,GPIO_PIN_SET);
+        delay_ms(10);
+        tat=0;
 	
-	}
+    }
 	
 	
 	
-	if(GPIO_Pin == GPIO_PIN_2) 		//key2  模式2LMT70测温
-	{
-			HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,GPIO_PIN_SET);
-			tat=1;
-	}
+    if(GPIO_Pin == GPIO_PIN_2) 		//key2  模式2LMT70测温
+    {
+        HAL_GPIO_WritePin(GPIOB,GPIO_PIN_6,GPIO_PIN_SET);
+                          tat=1;
+    }
 	
 	
 	
@@ -704,19 +704,19 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)//中断回调函数 在main中重
 
 int fputc(int ch,FILE *f)
 {
-	size_t count =1;
-	char chTemp = (char)ch;
+    size_t count =1;
+    char chTemp = (char)ch;
 	
-	HAL_UART_Transmit(&huart1,(uint8_t *)&chTemp,count,100);
-	return count;
+    HAL_UART_Transmit(&huart1,(uint8_t *)&chTemp,count,100);
+    return count;
 }
 //定时器TIM1中断，未使用
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) 
 {
-	if(htim->Instance == TIM1)
-	{
+    if(htim->Instance == TIM1)
+    {
 			
-	}
+    }
 }
 /* USER CODE END 4 */
 
