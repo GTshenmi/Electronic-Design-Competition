@@ -19,6 +19,12 @@
 |   双向失真波形    |    正常波形             |      交越失真波形            |   
 |![image7](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/7.jpeg)|![image6](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/6.jpeg)|![image8](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/8.jpeg)|
 
+#### `项目文件说明`
+-----------------------------------------------------------------------------------------------
+
+* **Source Code**：项目的源程序代码
+* **Technical Report**：项目的技术报告。
+
 #### `使用说明`
 -----------------------------------------------------------------------------------------------
 
@@ -42,6 +48,12 @@
 |   纸张计数显示    |   纸张计数装置    |
 |:---------------:|:---------------:|
 |![image0](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/0.jpeg)|![image1](https://github.com/GTshenmi/Electronic-Design-Competition/blob/main/Display%20Image/1.jpeg)|
+
+#### `项目文件说明`
+-----------------------------------------------------------------------------------------------
+
+* **Source Code**：项目的源程序代码
+* **Technical Report**：项目的技术报告。
 
 #### `使用说明`
 -----------------------------------------------------------------------------------------------
