@@ -226,7 +226,7 @@ void CalculateTHD(float *fft_outputbuf,float *THD,float len)
         else
         {
             fft_hz[i]=(float)((disFFT[i].num)*Fs/len);
-            fft_Value[i]=(disFFT[i].value + disFFT[FFT-1-i].value)/len*2;
+            fft_Value[i]=(disFFT[i].value + disFFT[FFT-1-i].value)/(len*2);
         }				
 
     }
