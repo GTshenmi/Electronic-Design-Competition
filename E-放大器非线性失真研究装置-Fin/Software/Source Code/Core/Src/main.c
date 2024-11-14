@@ -219,7 +219,7 @@ void CalculateTHD(float *fft_outputbuf,float *THD,float len)
     }
     for(i=0;i<FFT/2;i++)
     {
-        if((disFFT[i].num-1)*(Fs*1.0)/(len*1.0)>=5200.0)
+        if((disFFT[i].num)*(Fs*1.0)/(len*1.0)>=5200.0)
         {
             break;
         }
@@ -523,10 +523,10 @@ int main(void)
     while (1)
     {
         uint8_t fft_harmonic[5] = {0,0,0,0,0};
-        uint8_t _fft_harmonic[5] = {0,0,0,0,0};
-        uint8_t harmonic_buf[12];
-        for(int i = 0;i<12;i++)
-            harmonic_buf[i] = ' ';
+        uint8_t _fft_harmonic[6] = {0,0,0,0,0,0};
+//        uint8_t harmonic_buf[12];
+//        for(int i = 0;i<12;i++)
+//            harmonic_buf[i] = ' ';
     
         /* USER CODE END WHILE */
         OLED_Clear();
@@ -544,84 +544,18 @@ int main(void)
                 fft_harmonic[i] = 0;
 					
             if(fft_harmonic[i])
-                _fft_harmonic[i] = i + '0';
+                _fft_harmonic[i] = i + '1';
             else
                 _fft_harmonic[i] = ' ';			
         }
 			
         fft_harmonic[0] = 1;
         _fft_harmonic[0] = '1';
+        _fft_harmonic[5] = '\0';
 
-        if(fft_harmonic[2] == 1 && fft_harmonic[4] == 1)
-        {
-            _fft_harmonic[2] = '3';
-            _fft_harmonic[4] = '5';
-            _fft_harmonic[1] = ' ';
-            _fft_harmonic[0] = ' ';
-        }
-        else if(fft_harmonic[2] == 1 || fft_harmonic[4] == 1) // 1 3 5
-        {
-            _fft_harmonic[2] = '3';
-            _fft_harmonic[4] = '5';
-        }
-        else 
-	{
-            _fft_harmonic[1] = '2';
-            _fft_harmonic[3] = '4';
-        }
-			
-			
-			
-        if(fft_harmonic[1] == 1 && fft_harmonic[3] == 1)
-        {
-            _fft_harmonic[3] = '4';
-            _fft_harmonic[1] = '2';
-            _fft_harmonic[2] = ' ';
-            _fft_harmonic[4] = ' ';
-        }		
-        else if(fft_harmonic[1] == 1 || fft_harmonic[3] == 1) //1 2 4
-        {
-	
-            _fft_harmonic[1] = '2';
-            _fft_harmonic[3] = '4';
-        }
-        else
-        {
-            _fft_harmonic[2] = '3';
-            _fft_harmonic[4] = '5';
-        }
-			
-        if(fft_Value[0] && fft_Value[2] && fft_Value[4])
-        {
-            OLED_Clear();
-            OLED_ShowString(0,4,"1 3 5");
-        }
-        else
-        {
-            OLED_Clear();
-            OLED_ShowString(0,4,"1 2 4");
-        }	
-			
-        if(fft_Value[0] && fft_Value[1] && fft_Value[3])
-        {
-            OLED_Clear();
-            OLED_ShowString(0,4,"1 2 4");
-        }
-        else
-        {
-            if(THD <= 16.0)
-            {
-                OLED_Clear();
-                OLED_ShowString(0,4,"1 3 5");
-            }
-            else
-            {
-                OLED_Clear();
-                OLED_ShowString(0,4,"1 2 4");
-            }
-        }	
-				
-			
+        OLED_Clear();
+        OLED_ShowString(0, 4,(char *)_fft_harmonic);
+
         sprintf((char *)str_buff,"%.3f %%",THD*100);//将数据格式化为字符串
 			
         OLED_ShowString(46,2,str_buff);
